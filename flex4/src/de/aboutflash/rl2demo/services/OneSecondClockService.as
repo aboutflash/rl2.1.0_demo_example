@@ -7,9 +7,9 @@ import de.aboutflash.rl2demo.model.IClockModel;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
-public class SecondsClockService implements IClockService {
+public class OneSecondClockService implements IClockService {
 
-    public function SecondsClockService() {
+    public function OneSecondClockService() {
         timer = new Timer(1000);
         timer.addEventListener(TimerEvent.TIMER, onTimer)
     }

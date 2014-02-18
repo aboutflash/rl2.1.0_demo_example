@@ -3,11 +3,12 @@
  */
 package de.aboutflash.rl2demo {
 import de.aboutflash.rl2demo.commands.StartTimeUpdate;
+import de.aboutflash.rl2demo.commands.StopTimeUpdate;
 import de.aboutflash.rl2demo.model.ClockModel;
-import de.aboutflash.rl2demo.model.events.ClockEvent;
 import de.aboutflash.rl2demo.view.MainView;
+import de.aboutflash.rl2demo.view.events.MainViewEvent;
 import de.aboutflash.rl2demo.view.mediators.ClockMediator;
-import de.aboutflash.rl2demo.view.widgets.ClockWidget;
+import de.aboutflash.rl2demo.view.widgets.IClockWidget;
 
 import mx.core.IVisualElementContainer;
 
@@ -33,9 +34,10 @@ public class MyAppConfig implements IConfig {
     public function configure():void {
         injector.map(ClockModel).asSingleton();
 
-        mediatorMap.map(ClockWidget).toMediator(ClockMediator);
+        mediatorMap.map(IClockWidget).toMediator(ClockMediator);
 
-        commandMap.map(ClockEvent.CLOCK_UPDATE).toCommand(StartTimeUpdate);
+        commandMap.map(MainViewEvent.START_TIMER).toCommand(StartTimeUpdate);
+        commandMap.map(MainViewEvent.START_TIMER).toCommand(StopTimeUpdate);
 
         (contextView.view as IVisualElementContainer).addElement(new MainView());
     }
