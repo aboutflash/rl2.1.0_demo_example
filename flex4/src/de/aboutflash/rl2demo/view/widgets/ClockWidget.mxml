@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+  Created by developer on 17.02.14.
+-->
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+                      implements="de.aboutflash.rl2demo.view.widgets.IClockWidget">
+    <fx:Declarations>
+        <s:DateTimeFormatter id="dateTimeFormatter" dateTimePattern="HH:MM:SS"/>
+    </fx:Declarations>
+    <fx:Script><![CDATA[
+        [Bindable]
+        private var dateTime:String = '';
+
+        public function showDate(date:Date):void {
+            dateTime = dateTimeFormatter.format(date);
+        }
+        ]]></fx:Script>
+
+    <s:RichText text="{dateTime}" width="100%"/>
+
+</s:SkinnableContainer>
