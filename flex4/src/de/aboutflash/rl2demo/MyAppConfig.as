@@ -4,13 +4,16 @@
 package de.aboutflash.rl2demo {
 import de.aboutflash.rl2demo.commands.StartTimeUpdate;
 import de.aboutflash.rl2demo.commands.StopTimeUpdate;
+import de.aboutflash.rl2demo.commands.SwitchTimeService;
+import de.aboutflash.rl2demo.model.ApplicationModel;
 import de.aboutflash.rl2demo.model.ClockModel;
+import de.aboutflash.rl2demo.services.IClockService;
+import de.aboutflash.rl2demo.services.OneSecondClockService;
 import de.aboutflash.rl2demo.view.MainView;
 import de.aboutflash.rl2demo.view.events.MainViewEvent;
 import de.aboutflash.rl2demo.view.mediators.ClockMediator;
+import de.aboutflash.rl2demo.view.mediators.MainViewMediator;
 import de.aboutflash.rl2demo.view.widgets.IClockWidget;
-
-import mx.core.IVisualElementContainer;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
@@ -33,13 +36,16 @@ public class MyAppConfig implements IConfig {
 
     public function configure():void {
         injector.map(ClockModel).asSingleton();
+        injector.map(ApplicationModel).asSingleton();
 
+        injector.map(IClockService).toValue(injector.getOrCreateNewInstance(OneSecondClockService));
+
+        mediatorMap.map(MainView).toMediator(MainViewMediator)
         mediatorMap.map(IClockWidget).toMediator(ClockMediator);
 
         commandMap.map(MainViewEvent.START_TIMER).toCommand(StartTimeUpdate);
-        commandMap.map(MainViewEvent.START_TIMER).toCommand(StopTimeUpdate);
-
-        (contextView.view as IVisualElementContainer).addElement(new MainView());
+        commandMap.map(MainViewEvent.STOP_TIMER).toCommand(StopTimeUpdate);
+        commandMap.map(MainViewEvent.SWITCH_TIME_SERVICE).toCommand(SwitchTimeService);
     }
 }
 }

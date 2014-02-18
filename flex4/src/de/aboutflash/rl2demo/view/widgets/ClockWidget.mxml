@@ -3,13 +3,12 @@
   Created by developer on 17.02.14.
 -->
 <s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-                      implements="de.aboutflash.rl2demo.view.widgets.IClockWidget">
+                      implements="de.aboutflash.rl2demo.view.widgets.IClockWidget" backgroundColor="0xa2faff" width="50"
+                      height="20">
     <fx:Declarations>
-        <s:DateTimeFormatter id="dateTimeFormatter" dateTimePattern="HH:MM:SS"/>
+        <s:DateTimeFormatter id="dateTimeFormatter" dateTimePattern="HH:mm:ss"/>
     </fx:Declarations>
     <fx:Script><![CDATA[
-        import de.aboutflash.rl2demo.view.events.MainViewEvent;
-
         [Bindable]
         private var dateTime:String = '';
 
@@ -18,13 +17,5 @@
         }
         ]]></fx:Script>
 
-    <s:Label text="{dateTime}" width="100%" height="30" backgroundColor="0xf0f8ff"/>
-
-    <s:Group>
-        <s:layout>
-            <s:HorizontalLayout gap="10"/>
-        </s:layout>
-        <s:Button label="Start Timer" click="dispatchEvent(new MainViewEvent(MainViewEvent.START_TIMER))"/>
-        <s:Button label="Stop Timer" click="dispatchEvent(new MainViewEvent(MainViewEvent.STOP_TIMER))"/>
-    </s:Group>
+    <s:Label text="{dateTime}" width="100%" textAlign="center" verticalAlign="middle"/>
 </s:SkinnableContainer>

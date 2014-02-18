@@ -3,7 +3,41 @@
   Created by developer on 18.02.14.
 -->
 <s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-                      xmlns:widgets="de.aboutflash.rl2demo.view.widgets.*">
-    <widgets:ClockWidget width="120" height="80"/>
+                      xmlns:widgets="de.aboutflash.rl2demo.view.widgets.*" width="100%">
+    <fx:Metadata>
+        [Event(name="startTimer", type="de.aboutflash.rl2demo.view.events.MainViewEvent")]
+        [Event(name="stopTimer", type="de.aboutflash.rl2demo.view.events.MainViewEvent")]
+        [Event(name="switchTimeService", type="de.aboutflash.rl2demo.view.events.MainViewEvent")]
+    </fx:Metadata>
+
+    <fx:Script><![CDATA[
+        import de.aboutflash.rl2demo.view.events.MainViewEvent;
+
+        private function onAddWidget(event:MouseEvent):void {
+            var widget:ClockWidget = new ClockWidget();
+            this.addElement(widget);
+            widget.x = Math.random() * this.width;
+            widget.y = Math.random() * this.height;
+        }
+        ]]></fx:Script>
+
+    <s:Group top="50" width="100%" horizontalCenter="0">
+        <s:layout>
+            <s:HorizontalLayout gap="10" horizontalAlign="center"/>
+        </s:layout>
+        <widgets:ClockWidget/>
+        <widgets:ClockWidget/>
+    </s:Group>
+
+    <s:Group width="100%" top="150" horizontalCenter="0">
+        <s:layout>
+            <s:HorizontalLayout gap="10" horizontalAlign="center"/>
+        </s:layout>
+        <s:Button label="Start Clock" click="dispatchEvent(new MainViewEvent(MainViewEvent.START_TIMER))"/>
+        <s:Button label="Switch Time Service"
+                  click="dispatchEvent(new MainViewEvent(MainViewEvent.SWITCH_TIME_SERVICE))"/>
+        <s:Button label="Stop Clock" click="dispatchEvent(new MainViewEvent(MainViewEvent.STOP_TIMER))"/>
+    </s:Group>
+    <s:Button label="+" click="onAddWidget(event)"/>
 
 </s:SkinnableContainer>

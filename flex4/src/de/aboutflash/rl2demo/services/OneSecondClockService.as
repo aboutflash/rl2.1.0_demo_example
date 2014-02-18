@@ -2,7 +2,7 @@
  * Created by developer on 17.02.14.
  */
 package de.aboutflash.rl2demo.services {
-import de.aboutflash.rl2demo.model.IClockModel;
+import de.aboutflash.rl2demo.model.ClockModel;
 
 import flash.events.TimerEvent;
 import flash.utils.Timer;
@@ -15,7 +15,7 @@ public class OneSecondClockService implements IClockService {
     }
 
     [Inject]
-    public var clockModel:IClockModel;
+    public var clockModel:ClockModel;
     private var timer:Timer;
 
     public function startTimeUpdate():void {
