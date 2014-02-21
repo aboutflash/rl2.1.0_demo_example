@@ -3,41 +3,45 @@
   Created by developer on 18.02.14.
 -->
 <s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-                      xmlns:widgets="de.aboutflash.rl2demo.view.widgets.*" width="100%">
+                      width="100%">
     <fx:Metadata>
         [Event(name="startTimer", type="de.aboutflash.rl2demo.view.events.MainViewEvent")]
         [Event(name="stopTimer", type="de.aboutflash.rl2demo.view.events.MainViewEvent")]
-        [Event(name="switchTimeService", type="de.aboutflash.rl2demo.view.events.MainViewEvent")]
     </fx:Metadata>
 
     <fx:Script><![CDATA[
         import de.aboutflash.rl2demo.view.events.MainViewEvent;
+        import de.aboutflash.rl2demo.view.widgets.ClockWidget;
+
+        import mx.core.IVisualElement;
+
+        private static const PADDING:int = 10;
 
         private function onAddWidget(event:MouseEvent):void {
             var widget:ClockWidget = new ClockWidget();
-            this.addElement(widget);
-            widget.x = Math.random() * this.width;
-            widget.y = Math.random() * this.height;
+            clockContainer.addElement(widget);
+            var position:Point = getPositionInTarget(widget, clockContainer);
+            widget.x = position.x;
+            widget.y = position.y;
+        }
+
+        private function getPositionInTarget(widget:IVisualElement, target:IVisualElement):Point {
+            var position:Point = new Point(Math.random() * target.width + PADDING, Math.random() * target.height);
+            position.x = (position.x + widget.width + PADDING) > (target.width - PADDING) ? target.width - widget.width - PADDING : position.x;
+            position.y = (position.y + widget.height + PADDING) > (target.height - PADDING) ? target.height - widget.height - PADDING : position.y;
+            position.x = position.x < PADDING ? PADDING : position.x;
+            position.y = position.y < PADDING ? PADDING : position.y;
+            return position;
         }
         ]]></fx:Script>
 
-    <s:Group top="50" width="100%" horizontalCenter="0">
-        <s:layout>
-            <s:HorizontalLayout gap="10" horizontalAlign="center"/>
-        </s:layout>
-        <widgets:ClockWidget/>
-        <widgets:ClockWidget/>
-    </s:Group>
-
-    <s:Group width="100%" top="150" horizontalCenter="0">
+    <s:BorderContainer id="clockContainer" width="100%" top="0" bottom="50"/>
+    <s:Group width="100%" bottom="5">
         <s:layout>
             <s:HorizontalLayout gap="10" horizontalAlign="center"/>
         </s:layout>
         <s:Button label="Start Clock" click="dispatchEvent(new MainViewEvent(MainViewEvent.START_TIMER))"/>
-        <s:Button label="Switch Time Service"
-                  click="dispatchEvent(new MainViewEvent(MainViewEvent.SWITCH_TIME_SERVICE))"/>
+        <s:Button label="Add Clock Widget" click="onAddWidget(event)"/>
         <s:Button label="Stop Clock" click="dispatchEvent(new MainViewEvent(MainViewEvent.STOP_TIMER))"/>
     </s:Group>
-    <s:Button label="+" click="onAddWidget(event)"/>
-
 </s:SkinnableContainer>

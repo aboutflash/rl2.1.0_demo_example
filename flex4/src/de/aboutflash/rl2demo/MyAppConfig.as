@@ -4,7 +4,6 @@
 package de.aboutflash.rl2demo {
 import de.aboutflash.rl2demo.commands.StartTimeUpdate;
 import de.aboutflash.rl2demo.commands.StopTimeUpdate;
-import de.aboutflash.rl2demo.commands.SwitchTimeService;
 import de.aboutflash.rl2demo.model.ApplicationModel;
 import de.aboutflash.rl2demo.model.ClockModel;
 import de.aboutflash.rl2demo.services.IClockService;
@@ -45,7 +44,6 @@ public class MyAppConfig implements IConfig {
 
         commandMap.map(MainViewEvent.START_TIMER).toCommand(StartTimeUpdate);
         commandMap.map(MainViewEvent.STOP_TIMER).toCommand(StopTimeUpdate);
-        commandMap.map(MainViewEvent.SWITCH_TIME_SERVICE).toCommand(SwitchTimeService);
     }
 }
 }

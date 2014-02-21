@@ -14,7 +14,6 @@ public class MainViewMediator extends Mediator {
     override public function initialize():void {
         addViewListener(MainViewEvent.START_TIMER, onStartTimer);
         addViewListener(MainViewEvent.STOP_TIMER, onStopTimer);
-        addViewListener(MainViewEvent.SWITCH_TIME_SERVICE, onSwitchTimeService);
     }
 
     private function onSwitchTimeService(event:MainViewEvent):void {

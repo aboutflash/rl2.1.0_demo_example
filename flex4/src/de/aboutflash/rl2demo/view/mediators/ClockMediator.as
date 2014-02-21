@@ -16,8 +16,9 @@ public class ClockMediator extends Mediator implements IClockMediator {
     [Inject]
     public var logger:ILogger;
 
+
     override public function initialize():void {
-        addContextListener(ClockEvent.CLOCK_UPDATE, onClockUpdate)
+        addContextListener(ClockEvent.CLOCK_UPDATE, onClockUpdate);
     }
 
     private function onClockUpdate(event:ClockEvent):void {
